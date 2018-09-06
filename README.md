@@ -1,4 +1,4 @@
-Ginga poster for ADASS 2018.
+# Ginga poster for ADASS 2018
 
 Authors: P. L. Lim (STScI) & E. Jeschke (NAOJ)
 
