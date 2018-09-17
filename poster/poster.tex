@@ -1,7 +1,7 @@
-% 
+%
 % Poster latex file for ADASS 2018
-% P.L. Lim (lim@stsci.org)
-% Eric Jeschke (eric@naoj.org)
+% Pey Lian Lim (lim@stsci.edu)
+% Eric R. Jeschke (eric@naoj.org)
 %
 % [top-level file]
 \nonstopmode
@@ -18,11 +18,14 @@
 % in case you want to embed any hyperlinks
 %\usepackage{hyperref}
 
+% for + and - signs in setting width etc
+\usepackage{calc}
+
 % scalable fonts
-\usepackage{fontspec}
-\setmainfont[Mapping=tex-text,Scale=2.4]{Times New Roman}
-\setsansfont[Mapping=tex-text,Scale=2.4]{Arial}
-\setmonofont[Mapping=tex-text,Scale=2.4]{Courier New}
+\usepackage[quiet]{fontspec}
+\setmainfont[Mapping=tex-text,Scale=2.1]{DejaVu Serif}
+\setsansfont[Mapping=tex-text,Scale=2.1]{DejaVu Sans}
+\setmonofont[Mapping=tex-text,Scale=2.1]{DejaVu Sans Mono}
 %\setmainfont[Mapping=tex-text,Scale=1.0]{Times New Roman}
 %setsansfont[Mapping=tex-text,Scale=1.0]{Arial}
 %setmonofont[Mapping=tex-text,Scale=1.0]{Courier New}
@@ -94,7 +97,7 @@
 
 \title{Writing Ginga Plugins for Data Analysis and Quality Assurance of
             HST and JWST Science Data}
-\author{P. L. Lim (STScI) and E. Jeschke (NAOJ)}
+\author{P. L. Lim (STScI) and E. R. Jeschke (NAOJ)}
 
 % paragraph indentations
 \setlength{\parindent}{0in}
@@ -116,9 +119,9 @@
             HST and JWST Science Data }\\
 
 \vspace*{1.5em}
-P. L. Lim ({\tt lim@stsci.org}),
+Pey Lian Lim ({\tt lim@stsci.edu}),
 Space Telescope Science Institute \\
-Eric Jeschke ({\tt eric@naoj.org}),
+Eric R. Jeschke ({\tt eric@naoj.org}),
 National Astronomical Observatory of Japan
 \end{center}
 \end{minipage}
@@ -130,7 +133,8 @@ National Astronomical Observatory of Japan
 \end{minipage}
 %\vspace*{0in}
 \vspace*{2em}
-\hline
+
+\noindent\hrulefill
 
 \raggedcolumns
 \setlength{\columnseprule}{1pt}
@@ -154,18 +158,18 @@ and examples.
 implements a toolkit for building scientific viewers.  It provides
 a \emph{reference viewer} (see Fig. \ref{fig:ref-viewer}) which features
 a plugin architecture in which nearly every graphical feature of the
-program is implemented by a python plugin. 
+program is implemented by a python plugin.
 By implementing some new plugins for the HST and JWST data analysis and
 quality assurance tasks, and combining these with a curated selection of
 the distributed ``stock'' plugins, we were able to fairly quickly
-develop a tool for use in the HST/JWST community.  
+develop a tool for use in the HST/JWST community.
 
 \para
 \begin{center}
 \includegraphics[width=8in]{ref_viewer}
 \label{fig:ref-viewer}
 \vspace*{0.4em}
-{\small\em Figure 1: The Ginga reference viewer.} 
+{\small\em Figure 1: The Ginga reference viewer.}
 \end{center}
 
 \para
@@ -174,16 +178,39 @@ lacinia. Pellentesque ipsum. Quisque tincidunt scelerisque
 libero. Integer tempor. Proin in tellus sit amet nibh dignissim
 sagittis. Integer lacinia. Aliquam erat volutpat. Aliquam erat
 volutpat. Praesent id justo in neque elementum ultrices. Duis viverra
-diam non justo. 
+diam non justo.
+
+\section*{BackgroundSub}
+
+\para
+\begin{center}
+\includegraphics[width=8in]{plugin_backgroundsub} \\
+\vspace*{0.4em}
+\label{fig:plugin_backgroundsub}
+{\small\em Figure 2: BackgroundSub plugin for background subtraction.}
+\end{center}
+
+\para
+Curabitur vitae diam non enim vestibulum interdum. Duis ante orci,
+molestie vitae vehicula venenatis, tincidunt ac pede. Neque porro
+quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+adipisci velit, sed quia non numquam eius modi tempora incidunt ut
+labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Phasellus faucibus molestie nisl. Integer in
+sapien. Quisque porta. Aenean placerat. Mauris dictum facilisis
+augue. Duis pulvinar. Nemo enim ipsam voluptatem quia voluptas sit
+aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+qui ratione voluptatem sequi nesciunt.
 
 \section*{BadPixCorr}
 
 \para
 \begin{center}
-\includegraphics[width=8in]{plugin_mosaic.png}
-\label{fig:ref_viewer}
+\includegraphics[width=8in]{plugin_badpixcorr.png}
+\label{fig:plugin_badpixcorr}
 \vspace*{0.4em}
-{\small\em Figure 2: (replace with a BadPixCorr screenshot).} 
+{\small\em Figure 3: BadPixCorr plugin for bad pixel correction.}
 \end{center}
 
 \para
@@ -200,7 +227,7 @@ vestibulum in, elit. Integer malesuada. Cum sociis natoque penatibus et
 magnis dis parturient montes, nascetur ridiculus mus. Donec vitae
 arcu. Aliquam erat volutpat. Praesent id justo in neque elementum
 ultrices. Nam sed tellus id magna elementum tincidunt. Nullam lectus
-justo, vulputate eget mollis sed, tempor sed magna. 
+justo, vulputate eget mollis sed, tempor sed magna.
 
 \para
 Proin in tellus sit amet nibh dignissim sagittis. Curabitur bibendum
@@ -210,16 +237,16 @@ nostra, per inceptos hymenaeos. Nullam at arcu a est sollicitudin
 euismod. Quisque tincidunt scelerisque libero. Nullam eget nisl. Cras
 pede libero, dapibus nec, pretium sit amet, tempor quis. Maecenas
 libero. Curabitur sagittis hendrerit ante. Phasellus rhoncus. Sed
-convallis magna eu sem. Integer lacinia. 
+convallis magna eu sem. Integer lacinia.
 
 \section*{DQInspect}
 
 \para
 \begin{center}
-\includegraphics[width=8in]{plugin_histogram} \\
+\includegraphics[width=8in]{plugin_dqinspect} \\
 \vspace*{0.4em}
-\label{fig:plugin_histogram}
-{\small\em Figure 3: (replace with a DQInspect screenshot).} 
+\label{fig:plugin_dqinspect}
+{\small\em Figure 4: DQInspect plugin for data quality inspection.}
 \end{center}
 
 \para
@@ -232,16 +259,16 @@ tincidunt. Phasellus et lorem id felis nonummy placerat. Nulla accumsan,
 elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit
 diam nulla vel leo. Nunc dapibus tortor vel mi dapibus
 sollicitudin. Quisque porta. Praesent vitae arcu tempor neque lacinia
-pretium. 
+pretium.
 
 \section*{SNRCalc}
 
 \para
 \begin{center}
-\includegraphics[width=8in]{plugin_cuts} \\
+\includegraphics[width=8in]{plugin_snrcalc} \\
 \vspace*{0.4em}
-\label{fig:plugin_cuts}
-{\small\em Figure 4: (replace with a SNRCalc screenshot).} 
+\label{fig:plugin_snrcalc}
+{\small\em Figure 5: SNRCalc plugin for SNR calculation.}
 \end{center}
 
 \para
@@ -256,30 +283,7 @@ nibh dignissim sagittis. Etiam posuere lacus quis dolor. Integer
 lacinia. Aenean placerat. Maecenas libero. Ut tempus purus at
 lorem. Phasellus faucibus molestie nisl. Fusce consectetuer risus a
 nunc. Nullam faucibus mi quis velit. Duis condimentum augue id magna
-semper rutrum. 
-
-\section*{TVMark}
-
-\para
-\begin{center}
-\includegraphics[width=8in]{plugin_histogram} \\
-\vspace*{0.4em}
-\label{fig:plugin_histogram}
-{\small\em Figure 5: (replace with a TVMark screenshot).} 
-\end{center}
-
-\para
-Curabitur vitae diam non enim vestibulum interdum. Duis ante orci,
-molestie vitae vehicula venenatis, tincidunt ac pede. Neque porro
-quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minim
-veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-commodo consequat. Phasellus faucibus molestie nisl. Integer in
-sapien. Quisque porta. Aenean placerat. Mauris dictum facilisis
-augue. Duis pulvinar. Nemo enim ipsam voluptatem quia voluptas sit
-aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-qui ratione voluptatem sequi nesciunt. 
+semper rutrum.
 
 \section*{Writing a Ginga plugin}
 
@@ -313,7 +317,7 @@ imperdiet sapien wisi sed libero. Fusce dui leo, imperdiet in, aliquam
 sit amet, feugiat eu, orci. Aliquam erat volutpat. Fusce tellus odio,
 dapibus id fermentum quis, suscipit id erat. Aliquam ante. Vivamus ac
 leo pretium faucibus. Etiam posuere lacus quis dolor. Nullam dapibus
-fermentum ipsum. Praesent dapibus. 
+fermentum ipsum. Praesent dapibus.
 
 %% \para
 %% Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
@@ -325,7 +329,7 @@ fermentum ipsum. Praesent dapibus.
 %% wisi a erat. Nullam lectus justo, vulputate eget mollis sed, tempor sed
 %% magna. Pellentesque arcu. Cum sociis natoque penatibus et magnis dis
 %% parturient montes, nascetur ridiculus mus. Maecenas lorem. Maecenas
-%% libero. 
+%% libero.
 
 \para
 Fusce consectetuer risus a nunc. Etiam posuere lacus quis dolor. Nullam
@@ -341,7 +345,7 @@ aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
 eu fugiat nulla pariatur. Mauris metus. Etiam bibendum elit eget
 erat. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu,
 velit. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu,
-orci. Mauris dictum facilisis augue. Vivamus luctus egestas leo. 
+orci. Mauris dictum facilisis augue. Vivamus luctus egestas leo.
 
 \para
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Mauris dolor
@@ -359,7 +363,7 @@ imperdiet malesuada. Fusce dui leo, imperdiet in, aliquam sit amet,
 feugiat eu, orci. Nullam sapien sem, ornare ac, nonummy non, lobortis a
 enim. In dapibus augue non sapien. Temporibus autem quibusdam et aut
 officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
-repudiandae sint et molestiae non recusandae. 
+repudiandae sint et molestiae non recusandae.
 
 \section*{Conclusion}
 
@@ -370,7 +374,7 @@ astronomical Python modules.
 
 To get started, install Ginga via {\tt pip},
 {\tt conda} (using {\tt -c conda-forge}) or by git clone or zip download
-from \cite{ginga}.  
+from \cite{ginga}.
 
 \bibliographystyle{abbrv}
 \bibliography{poster}
