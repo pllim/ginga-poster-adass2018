@@ -175,7 +175,7 @@ develop a tool for use in the HST and JWST community.
 
 \para
 Ginga plugins are separated into global and local ones. A global plugin applies
-to all images across all channels; thus, only once instance can be opened
+to all images across all channels; thus, only one instance can be opened
 in the whole Ginga session.
 Meanwhile, a local plugin is associated with the channel it is started from;
 therefore, one instance can be opened per channel and different instances
@@ -185,7 +185,9 @@ Notebook/Lab. However, they are usable in a limited way via Ginga's remote
 control (RC) interface, which will not be covered here.
 
 \para
-Currently, all the plugins are available in {\tt stginga} are local plugins.
+Currently, all the plugins in {\tt stginga} are local plugins.
+As with other Ginga plugins, they can be customized via
+{\tt \textasciitilde/.ginga/plugin\_{\em PluginName}.cfg}.
 Some plugins currently in Ginga originated from {\tt stginga}
 (e.g., {\em ChangeHistory}, {\em SaveImage}, {\em TVMark}, and {\em TVMask})
 when they were identified to be useful in general beyond HST or JWST.
@@ -194,7 +196,6 @@ also work in Qt4, GTK 2, and GTK 3.
 
 \section*{BackgroundSub}
 
-\para
 \begin{center}
 \includegraphics[width=8in]{plugin_backgroundsub} \\
 \vspace*{0.4em}
@@ -203,11 +204,27 @@ also work in Qt4, GTK 2, and GTK 3.
 \end{center}
 
 \para
-Something about the plugin.
+{\em BackgroundSub} (see Fig. 2) is used to calculate and subtract background
+value. User draws a shape (e.g., annulus) to define
+the region from which background is calculated. In the ``Attributes'' box,
+parameters controlling the calculation can be adjusted.
+As user modifies the region or changes the parameters, background value would
+be recalculated accordingly.
+Optionally, if a data quality (DQ) extension is available, pixels marked as
+``not good'' can be excluded from calculations as well.
+Subtraction parameters can be saved to a JSON file, which then can be reloaded.
+
+\para
+Finally, if desired, the calculated background can be subtracted off
+the displayed image in Ginga. However, the subtracted image only exists in the
+Ginga session until it falls out of memory.
+To save the subtracted image out to a different file, use the {\em SaveImage}
+plugin in Ginga.
+Currently, {\em BackgroundSub} only handles constant background, therefore
+unsuitable for when background has a gradient or a pattern.
 
 \section*{BadPixCorr}
 
-\para
 \begin{center}
 \includegraphics[width=8in]{plugin_badpixcorr.png}
 \label{fig:plugin_badpixcorr}
@@ -216,14 +233,22 @@ Something about the plugin.
 \end{center}
 
 \para
-Something.
+{\em BadPixCorr} (see Fig. 3) is a plugin for performing interactive bad pixel
+correction on an image. Currently, it only handles fixing a single bad pixel or
+bad pixels within a circular region.
+The bad pixel(s) can be filled either by a user-defined constant, a constant
+calculated from an annulus (not unlike {\em BackgroundSub}), or Scipy
+{\tt griddata} interpolation using the annulus.
+If DQ extension is present, the corresponding DQ flags will also be set
+to the given new flag value (default is 0 for ``good'').
 
 \para
-Something something.
+Like {\em BackgroundSub}, it supports saving/loading parameters to/from
+JSON file. The corrected image only exists in the Ginga session until it
+falls out of memory; to save it, use {\em SaveImage}.
 
 \section*{DQInspect}
 
-\para
 \begin{center}
 \includegraphics[width=8in]{plugin_dqinspect} \\
 \vspace*{0.4em}
@@ -232,9 +257,26 @@ Something something.
 \end{center}
 
 \para
-Something something.
+{\em DQInspect} (see Fig. 4) is used to inspect the associated DQ array of a
+given image.
+It shows the different DQ flags (top table) that went into a selected pixel
+(marked by a red ``x'')
+and also the overall mask of the selected DQ flag(s)
+(blue pixels; bottom table).
+For overall mask, when multiple flags are selected, each flag is assigned a
+different mask color at a reduced opacity for each.
+User has the option to customize flag definitions for different instruments.
 
 \section*{SNRCalc}
+
+{\em SNRCalc} (see Fig. 5) is used to calculate Signal-to-Noise Ratio (SNR) and
+Surface Background Ratio (SBR) on an image.
+Given the selected science ({\em S}) and background ({\em B}) regions,
+SBR is defined by Ball Aerospace\cite{sbr} as the median of {\em S}
+divided by the standard deviation of {\em B}.
+If the image has an accompanying error ({\em E}) extension, SNR can also
+be calculated by dividing {\em S} by {\em E} over the same region and
+then computing its min, max, and mean.
 
 \para
 \begin{center}
@@ -245,20 +287,39 @@ Something something.
 \end{center}
 
 \para
-Something something.
+While SNR is more popular, SBR is useful for an image without existing or
+reliable error values. User may define a minimum limit for SBR check,
+so that the GUI can provide a quick visual indication on whether the
+selected region achieves the desired SBR or not.
+As part of the statistics, mean background value is also
+provided albeit not used in SBR nor SNR calculations.
+Optionally, if DQ extension is available, pixels marked as
+``not good'' can be excluded from calculations as well.
+
+\para
+Like {\em BackgroundSub}, it supports saving/loading parameters to/from
+JSON file.
+Calculated values can be saved in the image header using the ``Update HDR''
+button.
+The image with updated header only exists in the Ginga session until it
+falls out of memory; to save it, use {\em SaveImage}.
 
 \section*{Writing a Ginga plugin}
 
+% TODO: Polish text and update link.
+% NOTE: Link is broken into 2 lines to prevent overfull \hbox
 \para
-Something. Maybe code snippet for the template.
-
-\para
-Something.
+Instructions for writing a plugin is available at\\
+{\tt https://ginga.readthedocs.io/en/latest/manual/}\\
+{\tt developers.html\#writing-plugins-for-the-reference-viewer}.
+Existing plugins in Ginga and {\tt stginga} code repositories can be used as
+templates. It is recommended that you choose one that is the closest to your
+desired functionality as a starting point.
 
 \section*{Conclusion}
 
 {\tt stginga} utilizes Ginga plugins to support HST and JWST data analysis,
-which includes background subtraction, bad pixel correction, data quality flags
+which includes background subtraction, bad pixel correction, DQ flags
 inspection, and signal-to-noise calculations.
 
 \para
