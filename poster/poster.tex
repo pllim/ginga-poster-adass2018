@@ -1,7 +1,7 @@
 %
 % Poster latex file for ADASS 2018
 % Pey Lian Lim (lim@stsci.edu)
-% Eric R. Jeschke (eric@naoj.org)
+% Eric Jeschke (eric@naoj.org)
 %
 % [top-level file]
 \nonstopmode
@@ -97,7 +97,7 @@
 
 \title{{\tt stginga}: Ginga Plugins for Data Analysis and Quality Assurance of
             HST and JWST Science Data}
-\author{P. L. Lim (STScI) and E. R. Jeschke (NAOJ)}
+\author{P. L. Lim (STScI) and E. Jeschke (NAOJ)}
 
 % paragraph indentations
 \setlength{\parindent}{0in}
@@ -121,7 +121,7 @@
 \vspace*{1.5em}
 Pey Lian Lim ({\tt lim@stsci.edu}),
 Space Telescope Science Institute \\
-Eric R. Jeschke ({\tt eric@naoj.org}),
+Eric Jeschke ({\tt eric@naoj.org}),
 National Astronomical Observatory of Japan
 \end{center}
 \end{minipage}
@@ -174,12 +174,14 @@ the distributed ``stock'' plugins, we were able to fairly quickly
 develop a tool for use in the HST and JWST community.
 
 \para
-Ginga plugins are separated into global and local ones. A global plugin applies
-to all images across all channels; thus, only one instance can be opened
-in the whole Ginga session.
-Meanwhile, a local plugin is associated with the channel it is started from;
-therefore, one instance can be opened per channel and different instances
-can be configured separately in the same Ginga session.
+The reference viewer separates image data into virtual holding pens
+called \emph{channels}, named and organized by the user.
+Plugins are categorized as \emph{global} or \emph{local}.  A global
+plugin applies to all images across all channels: only one instance can
+be opened in the whole Ginga session, whereas a local plugin is
+associated with the channel it is started from: one instance can be
+opened per channel and different instances can be configured separately
+in the same Ginga session. 
 Plugins are currently not available when Ginga is used as part of Jupyter
 Notebook/Lab. However, they are usable in a limited way via Ginga's remote
 control (RC) interface, which will not be covered here.
@@ -309,12 +311,51 @@ falls out of memory; to save it, use {\em SaveImage}.
 % TODO: Polish text and update link.
 % NOTE: Link is broken into 2 lines to prevent overfull \hbox
 \para
-Instructions for writing a plugin is available at\\
-{\tt https://ginga.readthedocs.io/en/latest/manual/}\\
-{\tt developers.html\#writing-plugins-for-the-reference-viewer}.
+Instructions for writing a plugin is available at
+(https://ginga.readthedocs.io/en/latest/manual/\\
+developers.html#writing-plugins-for-the-reference-viewer).
 Existing plugins in Ginga and {\tt stginga} code repositories can be used as
-templates. It is recommended that you choose one that is the closest to your
-desired functionality as a starting point.
+examples. It is recommended that you play with the existing ones and
+choose one that is the closest to your desired functionality as a
+starting point. 
+
+\subsection*{Local plugins}
+A local plugin at it's simplest is just a Python class defined in a file.  
+The class should inherit from {\tt ginga.GingaPlugin.LocalPlugin}
+and provide {\tt \_\_init\_\_()}, {\tt build\_gui()}, {\tt start()}
+and {\tt stop()} methods.  These methods are used to initialize the
+plugin, build the user interface and to do any necessary tasks at the
+start and stop of the plugin, respectively. Typically you would also
+want to implement the {\tt redo()} method, which is called when there is
+new data loaded into the viewer to which the running plugin should respond.
+
+Inside the file, any modules that are available in the user's Python
+environment may be imported and used, allowing huge flexibility in
+the kinds of things a plugin can do.  It can open files, connect to
+sockets or other communication frameworks, call a myriad of python
+astronomical packages, etc.  It also has a reference to the viewer with
+which it is associated so it can access the viewer data (as a numpy array)
+and can manipulate canvas overlays with graphics on the viewer (as shown
+in the sections above) or manipulate the viewer settings (panning,
+scale, color map, etc.).
+
+\subsection*{Global plugins}
+Writing a global plugin is similiar to the process for writing a local
+one.  The difference is that the plugin ostensibly must be able to
+update it's state when the user switches channels, since there only
+one instance of the plugin is allowed to be open (there are callbacks
+for which you can register to be alerted of these events).  Otherwise
+the API is quite similar to that of a local plugin.
+
+\subsection*{Distributing plugins}
+When you want to distribute your plugin(s) the best way is to probably use
+the ginga-plugin-template \cite{plugin-template}.  This template allows one
+or more plugins to be installed as a separate package, and be
+discovered by the reference viewer when it starts up.  If you want
+more control over the layout of the viewer and the set of included
+plugins, you can follow the path blazed by {\tt stginga} and make your own
+startup script to for the reference viewer with a curated mix of the
+stock plugins with your own. 
 
 \section*{Conclusion}
 
