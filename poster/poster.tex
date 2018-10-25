@@ -196,7 +196,7 @@ Some plugins currently in Ginga originated from {\tt stginga}
 when they were identified to be useful in general beyond HST or JWST.
 The viewer can use different toolkit \emph{backends};
 all the screenshots shown in this poster used Qt5 backend, although they should
-also work with the Qt4, PySide, Gtk 2 and Gtk 3 backends.
+also work with the Qt4, PySide, GTK 2, and GTK 3 backends.
 
 \section*{BackgroundSub}
 
@@ -223,12 +223,12 @@ Finally, if desired, the calculated background can be subtracted off
 the displayed image in Ginga.
 However, the subtracted image only exists in an in-memory cache in Ginga;
 if the cache fills up Ginga will eventually eject the image if it is not
-being viewed. 
+being viewed.
 To save the subtracted image out to a different file, use the {\em SaveImage}
 plugin in Ginga.
 As of this writing, {\em BackgroundSub} only handles constant
 background, therefore unsuitable for when background has a gradient or a
-pattern. 
+pattern.
 
 \section*{BadPixCorr}
 
@@ -265,8 +265,8 @@ in use.  To save the result image, use {\em SaveImage}.
 \end{center}
 
 \para
-{\em DQInspect} (see Fig. 4) is used to visualize the associated DQ (Data
-Quality) array stored as an HDU within an image.
+{\em DQInspect} (see Fig. 4) is used to visualize the associated DQ
+array stored as an HDU within an image.
 It shows the different DQ flags (top table) that went into a selected pixel
 (marked by a red ``x'')
 and also the overall mask of the selected DQ flag(s)
@@ -323,10 +323,10 @@ developers.html#writing-plugins-for-the-reference-viewer).
 Existing plugins in Ginga and {\tt stginga} code repositories can be used as
 examples. It is recommended that you play with the existing ones and
 choose one that is the closest to your desired functionality as a
-starting point. 
+starting point.
 
 \subsection*{Local plugins}
-A local plugin at it's simplest is just a Python class defined in a file.  
+A local plugin at it's simplest is just a Python class defined in a file.
 The class should inherit from {\tt ginga.GingaPlugin.LocalPlugin}
 and provide {\tt \_\_init\_\_()}, {\tt build\_gui()}, {\tt start()}
 and {\tt stop()} methods.  These methods are used to initialize the
@@ -361,13 +361,13 @@ discovered by the reference viewer when it starts up.  If you want
 more control over the layout of the viewer and the set of included
 plugins, you can follow the path blazed by {\tt stginga} and make your own
 startup script to for the reference viewer with a curated mix of the
-stock plugins with your own. 
+stock plugins with your own.
 
 \section*{Conclusion}
 
 {\tt stginga} utilizes Ginga plugins to support HST and JWST data analysis,
 which includes background subtraction, bad pixel correction, DQ flags
-inspection and signal-to-noise calculations.
+inspection, and signal-to-noise calculations.
 
 \para
 Writing Ginga plugins can be an expedient way to develop graphical data
