@@ -318,49 +318,50 @@ is forced out by viewing other images; to save it, use {\em SaveImage}.
 % NOTE: Link is broken into 2 lines to prevent overfull \hbox
 \para
 Instructions for writing a plugin is available at
-(https://ginga.readthedocs.io/en/latest/manual/\\
-developers.html\#writing-plugins-for-the-reference-viewer).
+{\tt https://bit.ly/writeplugins}.
 Existing plugins in Ginga and {\tt stginga} code repositories can be used as
 examples. It is recommended that you play with the existing ones and
 choose one that is the closest to your desired functionality as a
 starting point.
 
 \subsection*{Local plugins}
-A local plugin at it's simplest is just a Python class defined in a file.
+A local plugin at its simplest is a Python class defined in a file.
 The class should inherit from {\tt ginga.GingaPlugin.LocalPlugin}
-and provide {\tt \_\_init\_\_()}, {\tt build\_gui()}, {\tt start()}
+and provide {\tt \_\_init\_\_()}, {\tt build\_gui()}, {\tt start()},
 and {\tt stop()} methods.  These methods are used to initialize the
-plugin, build the user interface and to do any necessary tasks at the
-start and stop of the plugin, respectively. Typically you would also
-want to implement the {\tt redo()} method, which is called when there is
+plugin, build the user interface, and to do any necessary tasks at the
+start and stop of the plugin, respectively. Typically, you would also
+want to implement the {\tt redo()} method, which is called when there are
 new data loaded into the viewer to which the running plugin should respond.
 
+\para
 Inside the file, any modules that are available in the user's Python
 environment may be imported and used, allowing huge flexibility in
-the kinds of things a plugin can do.  It can open files, connect to
-sockets or other communication frameworks, call a myriad of python
-astronomical packages, etc.  It also has a reference to the viewer with
-which it is associated so it can access the viewer data (as a numpy array)
+the kinds of things a plugin can do; i.e., open files, connect to
+sockets or other communication frameworks, or call a myriad of
+astronomical Python packages.  It also has a reference to the viewer with
+which it is associated so it can access the viewer data (as Numpy array)
 and can manipulate canvas overlays with graphics on the viewer (as shown
-in the sections above) or manipulate the viewer settings (panning,
-scale, color map, etc.).
+in the sections above) or manipulate the viewer settings (e.g., panning,
+scale, color map).
 
 \subsection*{Global plugins}
 Writing a global plugin is similiar to the process for writing a local
-one.  The difference is that the plugin ostensibly must be able to
-update it's state when the user switches channels, since there only
-one instance of the plugin is allowed to be open (there are callbacks
-for which you can register to be alerted of these events).  Otherwise
+one. The difference is that the plugin ostensibly must be able to
+update its state when the user switches channels, since there is only
+one instance of the plugin allowed to be open; There are callbacks
+for which you can register to be alerted of these events. Otherwise,
 the API is quite similar to that of a local plugin.
 
 \subsection*{Distributing plugins}
-When you want to distribute your plugin(s) the best way is to probably use
-the ginga-plugin-template \cite{plugin-template}.  This template allows one
+When you want to distribute your plugin(s), the best way is to use
+the {\tt ginga-plugin-template} \cite{plugin-template}.
+This template allows one
 or more plugins to be installed as a separate package, and be
 discovered by the reference viewer when it starts up.  If you want
 more control over the layout of the viewer and the set of included
 plugins, you can follow the path blazed by {\tt stginga} and make your own
-startup script to for the reference viewer with a curated mix of the
+startup script for the reference viewer with a curated mix of the
 stock plugins with your own.
 
 \section*{Conclusion}
