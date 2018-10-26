@@ -1,0 +1,10 @@
+# To make PDF -- Assuming all dependencies are installed.
+# Check poster.log to look for problems.
+xelatex poster.tex
+xelatex poster.tex
+bibtext poster
+xelatex poster.tex
+xelatex poster.tex
+
+# To make PNG
+convert -density 150 poster.pdf -quality 90 -background white poster.png
