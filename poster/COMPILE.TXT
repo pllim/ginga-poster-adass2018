@@ -7,4 +7,4 @@ xelatex poster.tex
 xelatex poster.tex
 
 # To make PNG
-convert -density 150 poster.pdf -quality 90 -background white poster.png
+convert -density 300 poster.pdf -quality 90 -background white poster.png
