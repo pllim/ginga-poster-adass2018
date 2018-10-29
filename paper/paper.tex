@@ -12,7 +12,7 @@
 
 \documentclass[11pt,twoside]{article}
 
-% Do NOT use ANY packages other than asp2014. 
+% Do NOT use ANY packages other than asp2014.
 \usepackage{asp2014}
 
 \aspSuppressVolSlug
@@ -33,7 +33,7 @@
 % Use mixed case type for the shortened title
 % Ensure shortened title does not cause an overfull hbox LaTeX error
 % See ASPmanual2010.pdf 2.1.4  and ManuscriptInstructions.pdf for more details
-\markboth{Pey-Lian Lim, Eric Jeschke}{stginga: Ginga Plugins for Data
+\markboth{Pey Lian Lim, Eric Jeschke}{stginga: Ginga Plugins for Data
   Analysis and Quality Assurance of HST and JWST Science Data}
 
 \begin{document}
@@ -41,7 +41,7 @@
 \title{stginga: Ginga Plugins for Data Analysis and Quality Assurance of
 HST and JWST Science Data}
 
-% Note the position of the comma between the author name and the 
+% Note the position of the comma between the author name and the
 % affiliation number.
 % Author names should be separated by commas.
 % The final author should be preceded by "and".
@@ -49,13 +49,12 @@ HST and JWST Science Data}
 % authors share an affiliation this should be in a single \affil which can then
 % be referenced for several author names.
 % See ManuscriptInstructions.pdf and ASPmanual2010.pdf 3.1.4 for more details
-\author{Pey-Lian~Lim, Eric~Jeschke}
+\author{Pey~Lian~Lim, Eric~Jeschke}
 \affil{Space~Telescope~Science~Institute,~National~Astronomical~Observatory~of~Japan}
 
 % This section is for ADS Processing.  There must be one line per author.
-\paperauthor{Sample~Author1}{Author1Email@email.edu}{ORCID_Or_Blank}{Author1 Institution}{Author1 Department}{City}{State/Province}{Postal Code}{Country}
-\paperauthor{Sample~Author2}{Author2Email@email.edu}{ORCID_Or_Blank}{Author2 Institution}{Author2 Department}{City}{State/Province}{Postal Code}{Country}
-\paperauthor{Sample~Author3}{Author3Email@email.edu}{ORCID_Or_Blank}{Author3 Institution}{Author3 Department}{City}{State/Province}{Postal Code}{Country}
+\paperauthor{Pey~Lian~Lim}{lim@stsci.edu}{0000-0003-0079-4114}{Space~Telescope~Science~Institute}{Data~Analysis~Tools~Branch}{Baltimore}{MD}{21218}{USA}
+\paperauthor{Eric~Jeschke}{eric@naoj.org}{}{National~Astronomical~Observatory~of~Japan}{}{Hilo}{HI}{96720}{USA}
 
 \begin{abstract}
 {\tt stginga}~\citep*{stginga} is an image visualization package to assist
@@ -80,7 +79,7 @@ the distributed ``stock'' plugins, we were able to fairly quickly
 develop a tool for use in the HST and JWST community.
 
 %% \articlefigure[width=0.7\textwidth]{paper_f1.eps}{fig2}{The Ginga
-%%   reference viewer.}  
+%%   reference viewer.}
 
 The reference viewer separates image data into virtual holding pens
 called \emph{channels}, named and organized by the user.
@@ -89,7 +88,7 @@ plugin applies to all images across all channels: only one instance can
 be opened in the whole Ginga session, whereas a local plugin is
 associated with the channel it is started from: one instance can be
 opened per channel and different instances can be configured separately
-in the same Ginga session. 
+in the same Ginga session.
 %% Plugins are currently not available when Ginga is used as part of Jupyter
 %% Notebook/Lab. However, they are usable in a limited way via Ginga's remote
 %% control (RC) interface, which will not be covered here.
@@ -106,7 +105,7 @@ also work in Qt4, GTK 2, and GTK 3.
 \section{BackgroundSub}
 
 %% \articlefigure[width=0.7\textwidth]{paper_f2.eps}{fig2}{BackgroundSub
-%%   plugin for background subtraction.}  
+%%   plugin for background subtraction.}
 
 {\em BackgroundSub} (see Fig. 2) is used to calculate and subtract background
 value. User draws a shape (e.g., annulus) to define
@@ -129,7 +128,7 @@ unsuitable for when background has a gradient or a pattern.
 \section{BadPixCorr}
 
 %% \articlefigure[width=0.7\textwidth]{paper_f3.eps}{fig3}{BadPixCorr
-%%   plugin for bad pixel correction.}  
+%%   plugin for bad pixel correction.}
 
 {\em BadPixCorr} (see Fig. 3) is a plugin for performing interactive bad pixel
 correction on an image. Currently, it only handles fixing a single bad pixel or
@@ -147,7 +146,7 @@ falls out of memory; to save it, use {\em SaveImage}.
 \section{DQInspect}
 
 \articlefigure[width=0.7\textwidth]{paper_f4.eps}{fig4}{DQInspect
-  plugin for data quality inspection.}  
+  plugin for data quality inspection.}
 
 {\em DQInspect} (see Fig. 4) is used to inspect the associated DQ array of a
 given image.
@@ -171,7 +170,7 @@ be calculated by dividing {\em S} by {\em E} over the same region and
 then computing its min, max, and mean.
 
 \articlefigure[width=0.7\textwidth]{paper_f5.eps}{fig5}{SNRCalc
-  plugin for SNR calculation.}  
+  plugin for SNR calculation.}
 
 While SNR is more popular, SBR is useful for an image without existing or
 reliable error values. User may define a minimum limit for SBR check,
@@ -199,10 +198,10 @@ developers.html\#writing-plugins-for-the-reference-viewer).
 Existing plugins in Ginga and {\tt stginga} code repositories can be used as
 examples. It is recommended that you play with the existing ones and
 choose one that is the closest to your desired functionality as a
-starting point. 
+starting point.
 
 \subsection{Local plugins}
-A local plugin at it's simplest is just a Python class defined in a file.  
+A local plugin at it's simplest is just a Python class defined in a file.
 The class should inherit from {\tt ginga.GingaPlugin.LocalPlugin}
 and provide {\tt \_\_init\_\_()}, {\tt build\_gui()}, {\tt start()}
 and {\tt stop()} methods.  These methods are used to initialize the
@@ -237,7 +236,7 @@ discovered by the reference viewer when it starts up.  If you want
 more control over the layout of the viewer and the set of included
 plugins, you can follow the path blazed by {\tt stginga} and make your own
 startup script to for the reference viewer with a curated mix of the
-stock plugins with your own. 
+stock plugins with your own.
 
 \section{Conclusion}
 {\tt stginga} utilizes Ginga plugins to support HST and JWST data analysis,
