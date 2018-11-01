@@ -1,4 +1,5 @@
 *~
+.~lock*
 poster/*.blg
 poster/*.bbl
 poster/*.log
