@@ -1,6 +1,6 @@
-DOC	= paper
+DOC	= P11-3
 
-paper:	
+paper:
 	latex $(DOC)
 	latex $(DOC)
 	bibtex $(DOC)
@@ -13,4 +13,3 @@ bundle:
 
 clean:
 	/bin/rm *.bbl *.aux *.blg *.dvi *.log *.ps *.pdf *.out
-
