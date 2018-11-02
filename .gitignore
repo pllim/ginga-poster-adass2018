@@ -7,3 +7,4 @@ poster/*.aux
 poster/*.out
 poster/poster.pdf
 poster/poster*.png
+paper/*.log
