@@ -22,19 +22,19 @@
 % Use mixed case type for the shortened title
 % Ensure shortened title does not cause an overfull hbox LaTeX error
 % See ASPmanual2010.pdf 2.1.4  and ManuscriptInstructions.pdf for more details
-\markboth{Lim and Jeschke}{stginga: Ginga Plugins for Data Analysis and Quality Assurance of HST and JWST Science Data}
+\markboth{Lim and Jeschke}{stginga: Ginga Plugins for Data Analysis \& Quality Assurance of...}
 
 \begin{document}
 
 \title{stginga: Ginga Plugins for Data Analysis and Quality Assurance of HST and JWST Science Data}
 
 \author{Pey~Lian~Lim,$^1$ and Eric~Jeschke$^2$
-  \affil{$^1$Space Telescope Science Institute, Baltimore, MD, USA; \email{lim@stsci.edu}}
-  \affil{$^2$National Astronomical Observatory of Japan, Hilo, HI, USA}}
+  \affil{$^1$STScI, Baltimore, MD, USA; \email{lim@stsci.edu}}
+  \affil{$^2$NAOJ, Hilo, HI, USA}}
 
 % This section is for ADS Processing.  There must be one line per author.
-\paperauthor{Pey~Lian~Lim}{lim@stsci.edu}{0000-0003-0079-4114}{Space~Telescope~Science~Institute}{Data~Analysis~Tools~Branch}{Baltimore}{MD}{21218}{USA}
-\paperauthor{Eric~Jeschke}{eric@naoj.org}{0000-0001-9586-4482}{National~Astronomical~Observatory~of~Japan}{Subaru Telescope}{Hilo}{HI}{96720}{USA}
+\paperauthor{Pey~Lian~Lim}{lim@stsci.edu}{0000-0003-0079-4114}{STScI}{Data~Analysis~Tools~Branch}{Baltimore}{MD}{21218}{USA}
+\paperauthor{Eric~Jeschke}{eric@naoj.org}{0000-0001-9586-4482}{NAOJ}{Subaru Telescope}{Hilo}{HI}{96720}{USA}
 
 % leave these commented for the editors to enable them
 %\aindex{Lim,~P.~L.}
@@ -69,15 +69,13 @@ and examples.
 
 Ginga~\citep{Jeschke15A} is a Python package that
 implements a toolkit for building scientific viewers.  It provides
-a \emph{reference viewer} (see \ref{fig1}), which features
+a \emph{reference viewer}, which features
 a plugin architecture in which nearly every graphical feature of the
 program is implemented by a Python plugin.
 By implementing some new plugins for the HST and JWST data analysis and
 quality assurance tasks, and combining these with a curated selection of
 the distributed ``stock'' plugins, we were able to fairly quickly
 develop a tool for use in the HST and JWST community.
-
-\articlefigure[width=0.7\textwidth]{P11-3_f1.eps}{fig1}{The Ginga reference viewer.}
 
 The reference viewer separates image data into virtual holding pens
 called \emph{channels}, named and organized by the user.
@@ -98,7 +96,7 @@ also work with the Qt4, PySide, GTK 2, and GTK 3 backends.
 
 \section{BackgroundSub}
 
-{\em BackgroundSub} (see \ref{fig2}) is used to calculate and subtract
+{\em BackgroundSub} (see Figure~\ref{fig2}) is used to calculate and subtract
 background value. User draws a shape (e.g., annulus) to define
 the region from which background is calculated. In the ``Attributes'' box,
 parameters controlling the calculation can be adjusted.
@@ -108,7 +106,8 @@ Optionally, if a data quality (DQ) extension is available, pixels marked as
 ``not good'' can be excluded from calculations as well.
 Subtraction parameters can be saved to a JSON file, which then can be reloaded.
 
-\articlefigure[width=0.7\textwidth]{P11-3_f2.eps}{fig2}{BackgroundSub plugin for background subtraction.}
+%[width=0.7\textwidth]
+\articlefigure{P11-3_f2.eps}{fig2}{BackgroundSub plugin for background subtraction.}
 
 Finally, if desired, the calculated background can be subtracted off
 the displayed image in Ginga.
@@ -123,7 +122,8 @@ pattern.
 
 \section{BadPixCorr}
 
-{\em BadPixCorr} (see \ref{fig3}) is a plugin for performing interactive bad pixel
+{\em BadPixCorr} (figure not shown here but available in the
+corresponding poster) is a plugin for performing interactive bad pixel
 correction on an image. Currently, it only handles fixing a single bad pixel or
 bad pixels within a circular region.
 The bad pixel(s) can be filled either by a user-defined constant, a constant
@@ -132,7 +132,7 @@ calculated from an annulus (not unlike {\em BackgroundSub}), or Scipy
 If DQ extension is present, the corresponding DQ flags will also be set
 to the given new flag value (default is 0 for ``good'').
 
-\articlefigure[width=0.7\textwidth]{P11-3_f3.eps}{fig3}{BadPixCorr plugin for bad pixel correction.}
+%\articlefigure[width=0.7\textwidth]{P11-3_f3.eps}{fig3}{BadPixCorr plugin for bad pixel correction.}
 
 Like {\em BackgroundSub}, it supports saving/loading parameters to/from
 JSON file and the corrected image only exists in the Ginga in-memory cache;
@@ -141,7 +141,7 @@ in use.  To save the result image, use {\em SaveImage}.
 
 \section{DQInspect}
 
-{\em DQInspect} (see \ref{fig4}) is used to visualize the associated DQ
+{\em DQInspect} (see Figure~\ref{fig4}) is used to visualize the associated DQ
 array stored as an HDU within an image.
 It shows the different DQ flags (top table) that went into a selected pixel
 (marked by a red ``x'')
@@ -151,11 +151,13 @@ For overall mask, when multiple flags are selected, each flag is assigned a
 different mask color at a reduced opacity for each.
 User has the option to customize flag definitions for different instruments.
 
-\articlefigure[width=0.7\textwidth]{P11-3_f4.eps}{fig4}{DQInspect plugin for data quality inspection.}
+%[width=0.7\textwidth]
+\articlefigure{P11-3_f4.eps}{fig4}{DQInspect plugin for data quality inspection.}
 
 \section{SNRCalc}
 
-{\em SNRCalc} (see \ref{fig5}) is used to calculate Signal-to-Noise Ratio
+{\em SNRCalc} (figure not shown here but available in the
+corresponding poster) is used to calculate Signal-to-Noise Ratio
 (SNR) and Surface Background Ratio (SBR) on an image.
 Given the selected science ({\em S}) and background ({\em B}) regions,
 SBR is defined by Ball Aerospace~\citep{sbr} as the median of {\em S}
@@ -164,7 +166,8 @@ If the image has an accompanying error ({\em E}) extension, SNR can also
 be calculated by dividing {\em S} by {\em E} over the same region and
 then computing its min, max, and mean.
 
-\articlefigure[width=0.7\textwidth]{P11-3_f5.eps}{fig5}{SNRCalc plugin for SNR calculation.}
+%[width=0.7\textwidth]
+%\articlefigure{P11-3_f5.eps}{fig5}{SNRCalc plugin for SNR calculation.}
 
 While SNR is more popular, SBR is useful for an image without existing or
 reliable error values. User may define a minimum limit for SBR check,
@@ -194,12 +197,13 @@ starting point.
 \subsection{Local plugins}
 
 A local plugin at it's simplest is just a Python class defined in a file.
-The class should inherit from {\tt ginga.GingaPlugin.LocalPlugin}
-and provide {\tt \_\_init\_\_()}, {\tt build\_gui()}, {\tt start()}
-and {\tt stop()} methods.  These methods are used to initialize the
+The class should inherit from {\em ginga.GingaPlugin.LocalPlugin}
+and provide {\em \_\_init\_\_()}, {\em build\_gui()},
+{\em start()}, and {\em stop()} methods.
+These methods are used to initialize the
 plugin, build the user interface and to do any necessary tasks at the
 start and stop of the plugin, respectively. Typically you would also
-want to implement the {\tt redo()} method, which is called when there is
+want to implement the {\em redo()} method, which is called when there is
 new data loaded into the viewer to which the running plugin should respond.
 
 Inside the file, any modules that are available in the user's Python
@@ -224,7 +228,7 @@ the API is quite similar to that of a local plugin.
 \subsection{Distributing plugins}
 
 When you want to distribute your plugin(s) the best way is to probably use
-the {\tt ginga-plugin-template} \citep{plugin-template}.
+the {\em ginga-plugin-template} \citep*{plugin-template}.
 This template allows one
 or more plugins to be installed as a separate package, and be
 discovered by the reference viewer when it starts up.  If you want
