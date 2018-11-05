@@ -60,8 +60,8 @@ in data analysis and quality assurance of science data from Hubble Space
 Telescope (HST) and James Webb Space Telescope (JWST).  It is based on the
 Ginga\footnote{\url{https://github.com/ejeschke/ginga}, NAOJ} toolkit for
 building scientific viewers.
-In this article, we will describe the main plugins developed for data
-analysis and quality assurance tasks with {\tt stginga}.  We also discuss the
+In this article, we will describe the main plugins developed
+with {\tt stginga}.  We also discuss the
 basic outline of writing a Ginga plugin, with pointers to documentation
 and examples.
 
@@ -88,33 +88,23 @@ associated with the channel it is started from: one instance can be
 opened per channel and different instances can be configured separately
 in the same Ginga session.
 
-Currently, all the plugins in {\tt stginga} are local plugins.
-Some plugins currently in Ginga originated from {\tt stginga}
-(e.g., {\em ChangeHistory}, {\em SaveImage}, {\em TVMark}, and {\em TVMask})
-when they were identified to be useful in general beyond HST or JWST.
-The viewer can use different toolkit \emph{backends};
-all the screenshots shown in this poster used Qt5 backend, although they should
-also work with the Qt4, PySide, GTK 2, and GTK 3 backends.
-
 \section{BackgroundSub}
 
-{\em BackgroundSub} (see Figure~\ref{fig2}) is used to calculate and subtract
+{\em BackgroundSub} (see Figure~\ref{fig1}) is used to calculate and subtract
 background value. User draws a shape (e.g., annulus) to define
-the region from which background is calculated. In the ``Attributes'' box,
-parameters controlling the calculation can be adjusted.
-As user modifies the region or changes the parameters, background value would
-be recalculated accordingly.
+the region from which background is calculated.
+As user modifies the region or changes the parameters in the
+``Attributes'' box, background value would be recalculated accordingly.
 Optionally, if a data quality (DQ) extension is available, pixels marked as
-``not good'' can be excluded from calculations as well.
+``not good'' also can be excluded from calculations.
 Subtraction parameters can be saved to a JSON file, which then can be reloaded.
 
-\articlefigure[width=0.7\textwidth]{P11-3_f2.eps}{fig2}{BackgroundSub plugin for background subtraction.}
+\articlefigure[width=0.7\textwidth]{P11-3_f1.eps}{fig1}{BackgroundSub plugin for background subtraction.}
 
-Finally, if desired, the calculated background can be subtracted off
+Then, the calculated background can be subtracted off
 the displayed image in Ginga.
 However, the subtracted image only exists in an in-memory cache in Ginga;
-if the cache fills up Ginga will eventually eject the image if it is not
-being viewed.
+if the cache fills up Ginga will eject the image if it is not being viewed.
 To save the subtracted image out to a different file, use the {\em SaveImage}
 plugin in Ginga.
 As of this writing, {\em BackgroundSub} only handles constant
@@ -125,7 +115,9 @@ pattern.
 
 {\em BadPixCorr} (figure not shown here but available in the
 corresponding poster) is a plugin for performing interactive bad pixel
-correction on an image. Currently, it only handles fixing a single bad pixel or
+correction on an image\footnote{See {\em BackgroundSub} for
+comments on JSON support and in-memory cache handling of corrected image}.
+Currently, it only handles fixing a single bad pixel or
 bad pixels within a circular region.
 The bad pixel(s) can be filled either by a user-defined constant, a constant
 calculated from an annulus (not unlike {\em BackgroundSub}), or Scipy
@@ -133,24 +125,19 @@ calculated from an annulus (not unlike {\em BackgroundSub}), or Scipy
 If DQ extension is present, the corresponding DQ flags will also be set
 to the given new flag value (default is 0 for ``good'').
 
-Like {\em BackgroundSub}, it supports saving/loading parameters to/from
-JSON file and the corrected image only exists in the Ginga in-memory cache;
-if the cache fills up Ginga will eventually eject the image if it is not
-in use.  To save the result image, use {\em SaveImage}.
-
 \section{DQInspect}
 
-{\em DQInspect} (see Figure~\ref{fig4}) is used to visualize the associated DQ
+{\em DQInspect} (see Figure~\ref{fig2}) is used to visualize the associated DQ
 array stored as an HDU within an image.
 It shows the different DQ flags (top table) that went into a selected pixel
 (marked by a red ``x'')
 and also the overall mask of the selected DQ flag(s)
-(blue pixels; bottom table).
+(blue/covered pixels; bottom table).
 For overall mask, when multiple flags are selected, each flag is assigned a
 different mask color at a reduced opacity for each.
 User has the option to customize flag definitions for different instruments.
 
-\articlefigure[width=0.7\textwidth]{P11-3_f4.eps}{fig4}{DQInspect plugin for data quality inspection.}
+\articlefigure[width=0.7\textwidth]{P11-3_f2.eps}{fig2}{DQInspect plugin for data quality inspection.}
 
 \section{SNRCalc}
 
@@ -172,13 +159,8 @@ As part of the statistics, mean background value is also
 provided albeit not used in SBR nor SNR calculations.
 Optionally, if DQ extension is available, pixels marked as
 ``not good'' can be excluded from calculations as well.
-
-Like {\em BackgroundSub}, it supports saving/loading parameters to/from
-JSON file.
 Calculated values can be saved in the image header using the ``Update HDR''
-button.
-The image with updated header only exists in the Ginga cache until it
-is forced out by viewing other images; to save it, use {\em SaveImage}.
+button.\footnotemark[3]
 
 \section{Writing a Ginga plugin}
 
@@ -246,9 +228,7 @@ astronomical Python modules.
 Both {\tt stginga} and {\tt ginga} are installable via {\tt pip}. Alternately,
 if you use {\tt conda}, they are also available on
 AstroConda\footnote{\url{https://astroconda.readthedocs.io}, STScI},
-in addition to {\tt ginga} being in  {\tt conda-forge} too. Their development
-versions could be cloned from GitHub. Both are open-source and licensed under
-3-clause BSD.
+in addition to {\tt ginga} being in  {\tt conda-forge} too.
 
 \bibliography{P11-3}
 
