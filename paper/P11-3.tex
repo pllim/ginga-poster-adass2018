@@ -54,10 +54,12 @@
 
 \begin{abstract}
 
-{\tt stginga}~\citep{stginga} is an image visualization package to assist
+{\tt stginga}\footnote{\url{https://github.com/spacetelescope/stginga}, STScI}
+is an image visualization package to assist
 in data analysis and quality assurance of science data from Hubble Space
 Telescope (HST) and James Webb Space Telescope (JWST).  It is based on the
-Ginga~\citep{ginga} toolkit for building scientific viewers.
+Ginga\footnote{\url{https://github.com/ejeschke/ginga}, NAOJ} toolkit for
+building scientific viewers.
 In this article, we will describe the main plugins developed for data
 analysis and quality assurance tasks with {\tt stginga}.  We also discuss the
 basic outline of writing a Ginga plugin, with pointers to documentation
@@ -106,8 +108,7 @@ Optionally, if a data quality (DQ) extension is available, pixels marked as
 ``not good'' can be excluded from calculations as well.
 Subtraction parameters can be saved to a JSON file, which then can be reloaded.
 
-%[width=0.7\textwidth]
-\articlefigure{P11-3_f2.eps}{fig2}{BackgroundSub plugin for background subtraction.}
+\articlefigure[width=0.7\textwidth]{P11-3_f2.eps}{fig2}{BackgroundSub plugin for background subtraction.}
 
 Finally, if desired, the calculated background can be subtracted off
 the displayed image in Ginga.
@@ -132,8 +133,6 @@ calculated from an annulus (not unlike {\em BackgroundSub}), or Scipy
 If DQ extension is present, the corresponding DQ flags will also be set
 to the given new flag value (default is 0 for ``good'').
 
-%\articlefigure[width=0.7\textwidth]{P11-3_f3.eps}{fig3}{BadPixCorr plugin for bad pixel correction.}
-
 Like {\em BackgroundSub}, it supports saving/loading parameters to/from
 JSON file and the corrected image only exists in the Ginga in-memory cache;
 if the cache fills up Ginga will eventually eject the image if it is not
@@ -151,8 +150,7 @@ For overall mask, when multiple flags are selected, each flag is assigned a
 different mask color at a reduced opacity for each.
 User has the option to customize flag definitions for different instruments.
 
-%[width=0.7\textwidth]
-\articlefigure{P11-3_f4.eps}{fig4}{DQInspect plugin for data quality inspection.}
+\articlefigure[width=0.7\textwidth]{P11-3_f4.eps}{fig4}{DQInspect plugin for data quality inspection.}
 
 \section{SNRCalc}
 
@@ -165,9 +163,6 @@ divided by the standard deviation of {\em B}.
 If the image has an accompanying error ({\em E}) extension, SNR can also
 be calculated by dividing {\em S} by {\em E} over the same region and
 then computing its min, max, and mean.
-
-%[width=0.7\textwidth]
-%\articlefigure{P11-3_f5.eps}{fig5}{SNRCalc plugin for SNR calculation.}
 
 While SNR is more popular, SBR is useful for an image without existing or
 reliable error values. User may define a minimum limit for SBR check,
@@ -228,7 +223,7 @@ the API is quite similar to that of a local plugin.
 \subsection{Distributing plugins}
 
 When you want to distribute your plugin(s) the best way is to probably use
-the {\em ginga-plugin-template} \citep*{plugin-template}.
+the {\em ginga-plugin-template}\footnote{\url{https://github.com/ejeschke/ginga-plugin-template}, NAOJ}.
 This template allows one
 or more plugins to be installed as a separate package, and be
 discovered by the reference viewer when it starts up.  If you want
@@ -249,7 +244,8 @@ Python, a lean Ginga plugin API, and the burgeoning number of open-source
 astronomical Python modules.
 
 Both {\tt stginga} and {\tt ginga} are installable via {\tt pip}. Alternately,
-if you use {\tt conda}, they are also available on AstroConda~\citep{astroconda},
+if you use {\tt conda}, they are also available on
+AstroConda\footnote{\url{https://astroconda.readthedocs.io}, STScI},
 in addition to {\tt ginga} being in  {\tt conda-forge} too. Their development
 versions could be cloned from GitHub. Both are open-source and licensed under
 3-clause BSD.
